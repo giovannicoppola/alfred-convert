@@ -197,6 +197,7 @@ def fetch_exchange_rates():
     else:
         jobs = [(load_openx_rates, (syms,))]
 
+    log.debug("RATTTTEEEEEESSSSSSS ")
     syms = []
     for s in CRYPTO_CURRENCIES.keys():
         log.debug("CRYPTOOOO %s" % s)

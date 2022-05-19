@@ -666,7 +666,7 @@ UPDATE_INTERVAL is the number of minutes between exchange rate updates.</string>
 		<key>THOUSANDS_SEPARATOR</key>
 		<string>,</string>
 		<key>UPDATE_INTERVAL</key>
-		<string>360</string>
+		<string>2</string>
 	</dict>
 	<key>variablesdontexport</key>
 	<array>
