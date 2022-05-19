@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>net.deanishe.alfred-convert</string>
+	<string>alfred-convert-GC</string>
 	<key>connections</key>
 	<dict>
 		<key>1E12C11D-30DB-44A8-AD75-F5BE7F2DA451</key>
@@ -174,6 +174,8 @@
 				<false/>
 				<key>clipboardtext</key>
 				<string>{query}</string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
 				<key>transient</key>
 				<false/>
 			</dict>
@@ -231,11 +233,14 @@
 				<key>runningsubtext</key>
 				<string>Convertifying…</string>
 				<key>script</key>
-				<string>echo . &gt;&amp;2
+				<string>export PYTHONPATH="$PWD/lib"
+export PATH=/opt/homebrew/bin:/usr/local/bin:$PWD/lib/bin:$PATH
+
+echo . &gt;&amp;2
 echo "http_proxy=$http_proxy"&gt;&amp;2
 echo "https_proxy=$https_proxy"&gt;&amp;2
 
-/usr/bin/python convert.py "$1"</string>
+python3 convert.py "$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -295,7 +300,10 @@ variables={allvars}</string>
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>/usr/bin/python defaults.py $action "$dimensionality" "$unit"</string>
+				<string>export PYTHONPATH="$PWD/lib"
+export PATH=/opt/homebrew/bin:/usr/local/bin:$PWD/lib/bin:$PATH
+
+python3 defaults.py $action "$dimensionality" "$unit"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -391,7 +399,10 @@ variables={allvars}</string>
 				<key>runningsubtext</key>
 				<string></string>
 				<key>script</key>
-				<string>/usr/bin/python info.py "$1"</string>
+				<string>export PYTHONPATH="$PWD/lib"
+export PATH=/opt/homebrew/bin:/usr/local/bin:$PWD/lib/bin:$PATH
+
+python3 info.py "$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -441,7 +452,10 @@ variables={allvars}</string>
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>script</key>
-				<string>/usr/bin/python info.py $1</string>
+				<string>export PYTHONPATH="$PWD/lib"
+export PATH=/opt/homebrew/bin:/usr/local/bin:$PWD/lib/bin:$PATH
+
+python3 info.py $1</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -659,7 +673,7 @@ UPDATE_INTERVAL is the number of minutes between exchange rate updates.</string>
 		<string>APP_KEY</string>
 	</array>
 	<key>version</key>
-	<string>3.7.1</string>
+	<string>3.99</string>
 	<key>webaddress</key>
 	<string></string>
 </dict>

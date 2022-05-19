@@ -12,7 +12,7 @@
 
 from __future__ import print_function
 
-from itertools import izip_longest
+from itertools import zip_longest
 from multiprocessing.dummy import Pool
 import os
 import time
@@ -54,7 +54,7 @@ def grouper(n, iterable):
     sentinel = object()
     args = [iter(iterable)] * n
     groups = []
-    for l in izip_longest(*args, fillvalue=sentinel):
+    for l in zip_longest(*args, fillvalue=sentinel):
         groups.append([v for v in l if v is not sentinel])
     return groups
 
@@ -199,6 +199,7 @@ def fetch_exchange_rates():
 
     syms = []
     for s in CRYPTO_CURRENCIES.keys():
+        log.debug("CRYPTOOOO %s" % s)
         if s in CURRENCIES:
             log.warning('ignoring crytopcurrency "%s", as it conflicts with '
                         'a fiat currency', s)

@@ -11,6 +11,7 @@
 """Drives Script Filter to show unit conversions in Alfred 3."""
 
 from __future__ import print_function
+from logging import exception
 
 import os
 import sys
@@ -101,9 +102,9 @@ def handle_update(wf):
     # Clear cache if previous version was old
     lv = wf.last_version_run
     log.debug('version=%s, last_version=%s', wf.version, lv)
-    if wf.version > Version('3.0') and lv < Version('3.1'):
-        log.debug('clearing cache: saved data is incompatible')
-        clear = True
+    #if wf.version > Version('3.0') and lv < Version('3.1'):
+    #    log.debug('clearing cache: saved data is incompatible')
+    #    clear = True
 
     if OPENX_APP_KEY:
         if os.path.exists(nokey):
@@ -112,7 +113,7 @@ def handle_update(wf):
             clear = True
     else:
         if not os.path.exists(nokey):
-            open(nokey, 'wb').write('')
+            open(nokey, 'w').write('')
 
     if clear:
         wf.cache_data(CURRENCY_CACHE_NAME, None)
@@ -386,9 +387,9 @@ class Converter(object):
         # Create `Input` from parsed query
         tu = None
         if to_unit:
-            tu = unicode(to_unit.units)
-        i = Input(from_unit.magnitude, unicode(from_unit.dimensionality),
-                  unicode(from_unit.units), tu, ctx)
+            tu = str(to_unit.units)
+        i = Input(from_unit.magnitude, str(from_unit.dimensionality),
+                  str(from_unit.units), tu, ctx)
 
         log.debug('[parser] %s', i)
 
@@ -560,7 +561,7 @@ def convert(query):
         i = c.parse(query)
     except ValueError as err:
         log.critical(u'invalid query (%s): %s', query, err)
-        error = err.message
+        error = str(err)
 
     else:
         try:
@@ -667,8 +668,9 @@ def main(wf):
 
     if not wf.cached_data_fresh(CURRENCY_CACHE_NAME, CURRENCY_CACHE_AGE):
         # Update currency rates
-        cmd = ['/usr/bin/python', wf.workflowfile('currency.py')]
+        cmd = ['python3', wf.workflowfile('currency.py')]
         run_in_background('update', cmd)
+        
         wf.rerun = 0.5
 
     if is_running('update'):
