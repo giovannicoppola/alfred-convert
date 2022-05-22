@@ -71,7 +71,7 @@ def load_cryptocurrency_rates(symbols):
 
     """
     url = CRYPTO_COMPARE_BASE_URL.format(REFERENCE_CURRENCY, ','.join(symbols))
-
+    log.debug ("CRYPTO++++++++++++++")
     log.debug('fetching %s ...', url)
     r = web.get(url, headers={'User-Agent': USER_AGENT})
     r.raise_for_status()
@@ -197,10 +197,10 @@ def fetch_exchange_rates():
     else:
         jobs = [(load_openx_rates, (syms,))]
 
-    log.debug("RATTTTEEEEEESSSSSSS ")
+    
     syms = []
     for s in CRYPTO_CURRENCIES.keys():
-        log.debug("CRYPTOOOO %s" % s)
+        
         if s in CURRENCIES:
             log.warning('ignoring crytopcurrency "%s", as it conflicts with '
                         'a fiat currency', s)
