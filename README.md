@@ -36,7 +36,7 @@ Downloading
 
 Download from [GitHub releases][ghreleases].
 
-**Note**: Version 3.7 and above only supports Alfred 4+. If you're still using Alfred 3, please download [v3.6.2][v3.6.2].
+**Note**: Version 3.7 and above only supports Alfred 4+. 
 
 
 <a name="usage"></a>
@@ -207,7 +207,7 @@ All other code/media are released under the [MIT Licence][mit].
 [fontawesome]: http://fortawesome.github.io/Font-Awesome/
 [ghissues]: https://github.com/deanishe/alfred-convert/issues
 [ghpulls]: https://github.com/deanishe/alfred-convert/pulls
-[ghreleases]: https://github.com/deanishe/alfred-convert/releases
+[ghreleases]: https://github.com/giovannicoppola/alfred-convert/releases/latest
 [mit]: http://opensource.org/licenses/MIT
 [pintdocs]: http://pint.readthedocs.org/en/latest/index.html
 [pinthowto]: http://pint.readthedocs.org/en/latest/defining.html
