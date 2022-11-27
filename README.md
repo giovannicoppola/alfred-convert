@@ -2,7 +2,15 @@
 Alfred-Convert
 ==============
 
-Convert between different units offline in [Alfred 3 & 4][alfred].
+Convert between different units offline in [Alfred][alfred].
+
+Original by Dean Jackson ([@deanishe](https://github.com/deanishe))
+
+<a href="https://github.com/giovannicoppola/alfred-convert/releases/latest/">
+<img alt="Downloads"
+src="https://img.shields.io/github/downloads/giovannicoppola/alfred-convert/total?color=purple&label=Downloads"><br/>
+</a>
+
 
 ![][demo]
 
@@ -36,7 +44,6 @@ Downloading
 
 Download from [GitHub releases][ghreleases].
 
-**Note**: Version 3.7 and above only supports Alfred 4+. If you're still using Alfred 3, please download [v3.6.2][v3.6.2].
 
 
 <a name="usage"></a>
@@ -161,6 +168,8 @@ See [CHANGELOG][changelog] for more information.
 
 |     Release     |      Date      |
 |-----------------|----------------|
+| [4.0][v4.0]     | 2022-11-27     |
+| [3.99][v3.99]   | 2022-05-22     |
 | [3.7.0][v3.7.0] | 2020-02-20     |
 | [3.6.2][v3.6.2] | 2019-09-06     |
 | [3.6.1][v3.6.1] | 2019-05-30     |
@@ -203,11 +212,11 @@ All other code/media are released under the [MIT Licence][mit].
 [alfred-workflow]: http://www.deanishe.net/alfred-workflow/
 [alfred]: http://www.alfredapp.com/
 [changelog]: ./CHANGELOG.md
-[demo]: https://raw.github.com/deanishe/alfred-convert/master/demo.gif
+[demo]: https://raw.github.com/giovannicoppola/alfred-convert/master/demo.gif
 [fontawesome]: http://fortawesome.github.io/Font-Awesome/
-[ghissues]: https://github.com/deanishe/alfred-convert/issues
-[ghpulls]: https://github.com/deanishe/alfred-convert/pulls
-[ghreleases]: https://github.com/deanishe/alfred-convert/releases
+[ghissues]: https://github.com/giovannicoppola/alfred-convert/issues
+[ghpulls]: https://github.com/giovannicoppola/alfred-convert/pulls
+[ghreleases]: https://github.com/giovannicoppola/alfred-convert/releases
 [mit]: http://opensource.org/licenses/MIT
 [pintdocs]: http://pint.readthedocs.org/en/latest/index.html
 [pinthowto]: http://pint.readthedocs.org/en/latest/defining.html
@@ -238,6 +247,8 @@ All other code/media are released under the [MIT Licence][mit].
 [v3.6.1]: https://github.com/deanishe/alfred-convert/releases/tag/v3.6.1
 [v3.6.2]: https://github.com/deanishe/alfred-convert/releases/tag/v3.6.2
 [v3.7.0]: https://github.com/deanishe/alfred-convert/releases/tag/v3.7.0
+[v3.99]: https://github.com/giovannicoppola/alfred-convert/releases/tag/v3.99
+[v4.0]: https://github.com/giovannicoppola/alfred-convert/releases/tag/v4.0
 [cryptocompare]: https://www.cryptocompare.com/
 [openx]: https://openexchangerates.org/
 [openx-free]: https://openexchangerates.org/signup/free

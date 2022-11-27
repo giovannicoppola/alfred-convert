@@ -1,6 +1,20 @@
 
 Changelog
 =========
+### [4][v4] ###
+
+Released 2022-11-27
+
+- Alfred 5 version
+
+
+### [3.99][v3.99] ###
+
+Released 2022-05-22
+
+- Ported to Python 3
+
+
 
 ### [3.7.0][v3.7.0] ###
 
@@ -224,4 +238,6 @@ Released 2014-08-09.
 [v3.6.1]: https://github.com/deanishe/alfred-convert/releases/tag/v3.6.1
 [v3.6.2]: https://github.com/deanishe/alfred-convert/releases/tag/v3.6.2
 [v3.7.0]: https://github.com/deanishe/alfred-convert/releases/tag/v3.7.0
+[v3.99]: https://github.com/giovannicoppola/alfred-convert/releases/tag/v3.99
+[v4]: https://github.com/giovannicoppola/alfred-convert/releases/tag/v4
 [openx]: https://openexchangerates.org/

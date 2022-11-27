@@ -264,6 +264,8 @@ python3 convert.py "$1"</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>availableviaurlhandler</key>
+				<false/>
 				<key>triggerid</key>
 				<string>convert</string>
 			</dict>
@@ -361,6 +363,8 @@ python3 defaults.py $action "$dimensionality" "$unit"</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>availableviaurlhandler</key>
+				<false/>
 				<key>triggerid</key>
 				<string>config</string>
 			</dict>
@@ -508,173 +512,303 @@ python3 info.py $1</string>
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>Offline Conversions
+	<string>https://github.com/giovannicoppola/alfred-convert
+
+Offline Conversions
 ===================
 
 Based on the awesome Pint library.
 
 In addition to all units supported by Pint, almost all the currencies supported by OpenExchangeRates.org and cryptocurrencies supported by CryptoCompare.com are supported.
 
-You can also add your own custom units.
-
-
-Configuration
--------------
-
-APP_KEY is your API key for OpenExchangeRates.org. This is required
-to download exchange rates for fiat currencies.
-
-
-COPY_UNIT determines whether the unit is also copied when you press CMD+C. 0 or no value means the unit won't be copied. Any other value means the unit will also be copied.
-
-CURRENCY_DECIMAL_PLACES overrides DECIMAL_PLACES (see below) for currency conversion.
-
-DECIMAL_PLACES is the number of decimal places to show in conversion results.
-
-DECIMAL_SEPARATOR is the character used to separate whole numbers from decimal fraction when parsing input and displaying output (see also THOUSANDS_SEPARATOR below).
-
-DYNAMIC_DECIMALS is whether to dynamically increase the number of decimal places shown until the result is non-zero. Set to 0 or empty to turn off.
-
-THOUSANDS_SEPARATOR is the character used to separate thousands when parsing and outputting numbers.
-
-UPDATE_INTERVAL is the number of minutes between exchange rate updates.</string>
+You can also add your own custom units.</string>
 	<key>uidata</key>
 	<dict>
 		<key>03379773-30CB-4371-BC49-8E2EA4C9947A</key>
 		<dict>
 			<key>xpos</key>
-			<integer>1070</integer>
+			<real>1070</real>
 			<key>ypos</key>
-			<integer>170</integer>
+			<real>170</real>
 		</dict>
 		<key>070B760D-0FE5-427B-9AFE-E617CDAF3601</key>
 		<dict>
 			<key>xpos</key>
-			<integer>1070</integer>
+			<real>1070</real>
 			<key>ypos</key>
-			<integer>340</integer>
+			<real>340</real>
 		</dict>
 		<key>14C63701-669A-43A3-BF6A-65A23759DA5F</key>
 		<dict>
 			<key>xpos</key>
-			<integer>610</integer>
+			<real>610</real>
 			<key>ypos</key>
-			<integer>340</integer>
+			<real>340</real>
 		</dict>
 		<key>1E12C11D-30DB-44A8-AD75-F5BE7F2DA451</key>
 		<dict>
 			<key>note</key>
 			<string>Perform conversion</string>
 			<key>xpos</key>
-			<integer>210</integer>
+			<real>210</real>
 			<key>ypos</key>
-			<integer>110</integer>
+			<real>110</real>
 		</dict>
 		<key>4489D9A5-121F-4F86-A8B9-6B6E7A49CEA6</key>
 		<dict>
 			<key>xpos</key>
-			<integer>440</integer>
+			<real>440</real>
 			<key>ypos</key>
-			<integer>140</integer>
+			<real>140</real>
 		</dict>
 		<key>4F101B56-DE40-4D36-8D3D-E5E01A83C8D0</key>
 		<dict>
 			<key>note</key>
 			<string>Set query from var:query</string>
 			<key>xpos</key>
-			<integer>980</integer>
+			<real>980</real>
 			<key>ypos</key>
-			<integer>370</integer>
+			<real>370</real>
 		</dict>
 		<key>54F0C711-EDE6-4387-B397-34AB8A8FFCB2</key>
 		<dict>
 			<key>note</key>
 			<string>Default action</string>
 			<key>xpos</key>
-			<integer>650</integer>
+			<real>650</real>
 			<key>ypos</key>
-			<integer>70</integer>
+			<real>70</real>
 		</dict>
 		<key>607FA0B2-94A5-48E4-96E9-0BFA8872F7EE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>770</integer>
+			<real>770</real>
 			<key>ypos</key>
-			<integer>40</integer>
+			<real>40</real>
 		</dict>
 		<key>96CC03AC-25D6-4FDB-AA8B-FCF145F4D597</key>
 		<dict>
 			<key>xpos</key>
-			<integer>410</integer>
+			<real>410</real>
 			<key>ypos</key>
-			<integer>340</integer>
+			<real>340</real>
 		</dict>
 		<key>C1740EC8-21DE-4062-A3F3-A46CDC61EFFF</key>
 		<dict>
 			<key>xpos</key>
-			<integer>40</integer>
+			<real>40</real>
 			<key>ypos</key>
-			<integer>110</integer>
+			<real>110</real>
 		</dict>
 		<key>CFE51A32-D227-42BA-966C-DBDED818F1D4</key>
 		<dict>
 			<key>note</key>
 			<string>Save/delete unit</string>
 			<key>xpos</key>
-			<integer>650</integer>
+			<real>650</real>
 			<key>ypos</key>
-			<integer>200</integer>
+			<real>200</real>
 		</dict>
 		<key>DA12DA9F-7A81-4D31-BECF-ADF453BB814C</key>
 		<dict>
 			<key>xpos</key>
-			<integer>40</integer>
+			<real>40</real>
 			<key>ypos</key>
-			<integer>340</integer>
+			<real>340</real>
 		</dict>
 		<key>EF92F243-C49B-4DFC-B0A4-72317B2457A7</key>
 		<dict>
 			<key>note</key>
 			<string>View currencies and edit configuration</string>
 			<key>xpos</key>
-			<integer>210</integer>
+			<real>210</real>
 			<key>ypos</key>
-			<integer>340</integer>
+			<real>340</real>
 		</dict>
 		<key>F738EA53-3486-4210-B03B-CFB792FD1798</key>
 		<dict>
 			<key>xpos</key>
-			<integer>770</integer>
+			<real>770</real>
 			<key>ypos</key>
-			<integer>170</integer>
+			<real>170</real>
 		</dict>
 	</dict>
-	<key>variables</key>
-	<dict>
-		<key>APP_KEY</key>
-		<string>b8d1bd23fd3f4c1aaebb23402ada98bd</string>
-		<key>COPY_UNIT</key>
-		<string></string>
-		<key>CURRENCY_DECIMAL_PLACES</key>
-		<string>2</string>
-		<key>DECIMAL_PLACES</key>
-		<string>2</string>
-		<key>DECIMAL_SEPARATOR</key>
-		<string>.</string>
-		<key>DYNAMIC_DECIMALS</key>
-		<string>1</string>
-		<key>THOUSANDS_SEPARATOR</key>
-		<string>,</string>
-		<key>UPDATE_INTERVAL</key>
-		<string>60</string>
-	</dict>
-	<key>variablesdontexport</key>
+	<key>userconfigurationconfig</key>
 	<array>
-		<string>APP_KEY</string>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>API key for openexchangerates.org. This is required to download exchange rates for fiat currencies.</string>
+			<key>label</key>
+			<string>App Key</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>APP_KEY</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>determines whether the unit is also copied when you press CMD+C. 0 or no value means the unit won't be copied. Any other value means the unit will also be copied.</string>
+			<key>label</key>
+			<string>Copy Unit</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>COPY_UNIT</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>2</string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Overrides the default `DECIMAL_PLACES` setting for currency conversions.</string>
+			<key>label</key>
+			<string>Currency Decimal Places</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>CURRENCY_DECIMAL_PLACES</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>2</string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Number of decimal places to show in results.</string>
+			<key>label</key>
+			<string>Decimal Places</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>DECIMAL_PLACES</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>.</string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>character used to separate whole numbers from decimal fraction when parsing input and displaying output (see also THOUSANDS_SEPARATOR below).</string>
+			<key>label</key>
+			<string>Decimal Separator</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>DECIMAL_SEPARATOR</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>1</string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Dynamically increase the number of decimal places (up to 10) so that the result is non-zero. Any value but 0 or empty turns this option on.</string>
+			<key>label</key>
+			<string>Dynamic Decimals</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>DYNAMIC_DECIMALS</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>,</string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Character to delimit thousands Used for parsing input and generating output.</string>
+			<key>label</key>
+			<string>Thousands Separator</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>THOUSANDS_SEPARATOR</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>60</string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>How often (in minutes) to update currency exchange rates.</string>
+			<key>label</key>
+			<string>Update Interval</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>UPDATE_INTERVAL</string>
+		</dict>
 	</array>
+	<key>variablesdontexport</key>
+	<array/>
 	<key>version</key>
-	<string>3.99</string>
+	<string>4.0</string>
 	<key>webaddress</key>
-	<string></string>
+	<string>https://github.com/giovannicoppola/alfred-convert</string>
 </dict>
 </plist>
