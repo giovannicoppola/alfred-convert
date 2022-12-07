@@ -1740,8 +1740,8 @@ CRYPTO_CURRENCIES = {
 # ----------------------------------------------------------------------
 # Help/support URLs
 # ----------------------------------------------------------------------
-HELP_URL = 'https://github.com/deanishe/alfred-convert/issues'
-README_URL = 'https://github.com/deanishe/alfred-convert#alfred-convert'
+HELP_URL = 'https://github.com/giovannicoppola/alfred-convert/issues'
+README_URL = 'https://github.com/giovannicoppola/alfred-convert#alfred-convert'
 
 # ----------------------------------------------------------------------
 # Icons
@@ -1753,7 +1753,7 @@ ICON_UPDATE = 'icons/update-available.png'
 # ----------------------------------------------------------------------
 # Update and default user settings
 # ----------------------------------------------------------------------
-UPDATE_SETTINGS = {'github_slug': 'deanishe/alfred-convert'}
+
 DEFAULT_SETTINGS = {}
 
 

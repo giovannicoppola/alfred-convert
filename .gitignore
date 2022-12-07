@@ -1,5 +1,6 @@
 /build
 .cache
+prefs.plist
 
 # Python snippets from gitignore on github
 

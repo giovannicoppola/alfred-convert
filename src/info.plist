@@ -221,7 +221,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>keyword</key>
-				<string>conv</string>
+				<string>{var:mainkeyword}</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -512,16 +512,15 @@ python3 info.py $1</string>
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>https://github.com/giovannicoppola/alfred-convert
+	<string># Convert
 
-Offline Conversions
-===================
 
-Based on the awesome Pint library.
+Offline Conversions, based on the awesome Pint library.
 
 In addition to all units supported by Pint, almost all the currencies supported by OpenExchangeRates.org and cryptocurrencies supported by CryptoCompare.com are supported.
 
-You can also add your own custom units.</string>
+You can also add your own custom units.
+More info [here](https://github.com/giovannicoppola/alfred-convert)</string>
 	<key>uidata</key>
 	<dict>
 		<key>03379773-30CB-4371-BC49-8E2EA4C9947A</key>
@@ -803,11 +802,32 @@ You can also add your own custom units.</string>
 			<key>variable</key>
 			<string>UPDATE_INTERVAL</string>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>conv</string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string></string>
+			<key>label</key>
+			<string>Keyword</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>mainkeyword</string>
+		</dict>
 	</array>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>4.0</string>
+	<string>4.0.1</string>
 	<key>webaddress</key>
 	<string>https://github.com/giovannicoppola/alfred-convert</string>
 </dict>

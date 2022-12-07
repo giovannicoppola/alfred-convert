@@ -38,8 +38,8 @@ from config import (
     ICON_UPDATE,
     NOKEY_FILENAME,
     OPENX_APP_KEY,
-    THOUSANDS_SEPARATOR,
-    UPDATE_SETTINGS,
+    THOUSANDS_SEPARATOR
+    
 )
 from defaults import Defaults
 
@@ -687,8 +687,7 @@ def main(wf):
 
 
 if __name__ == '__main__':
-    wf = Workflow3(update_settings=UPDATE_SETTINGS,
-                   default_settings=DEFAULT_SETTINGS,
+    wf = Workflow3(default_settings=DEFAULT_SETTINGS,
                    help_url=HELP_URL)
     log = wf.logger
     sys.exit(wf.run(main))
