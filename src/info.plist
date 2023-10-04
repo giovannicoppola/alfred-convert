@@ -649,7 +649,7 @@ More info [here](https://github.com/giovannicoppola/alfred-convert)</string>
 			<key>description</key>
 			<string>API key for openexchangerates.org. This is required to download exchange rates for fiat currencies.</string>
 			<key>label</key>
-			<string>App Key</string>
+			<string>API Key</string>
 			<key>type</key>
 			<string>textfield</string>
 			<key>variable</key>
@@ -827,7 +827,7 @@ More info [here](https://github.com/giovannicoppola/alfred-convert)</string>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>4.0.1</string>
+	<string>4.0.2</string>
 	<key>webaddress</key>
 	<string>https://github.com/giovannicoppola/alfred-convert</string>
 </dict>
