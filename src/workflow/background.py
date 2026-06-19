@@ -286,12 +286,19 @@ def main(wf):  # pragma: no cover
 
     try:
         # Run the command
-        log.debug("[%s] running command: %r", name, args)
+        env = kwargs.get('env', os.environ)
+        log.info("[%s] running command: %r", name, args)
+        log.info("[%s] workflow_cache=%s cwd=%s",
+                 name,
+                 env.get('alfred_workflow_cache', '(unset)'),
+                 os.getcwd())
 
         retcode = subprocess.call(args, **kwargs)
 
         if retcode:
             log.error("[%s] command failed with status %d", name, retcode)
+        else:
+            log.info("[%s] command finished successfully", name)
     finally:
         os.unlink(pidfile)
 

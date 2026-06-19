@@ -107,13 +107,22 @@ def currency_not_loaded(unit):
 
 def load_exchange_rates(wf):
     """Load cached exchange rates, ignoring stale empty caches."""
+    cache_path = wf.cachefile('{}.{}'.format(CURRENCY_CACHE_NAME,
+                                              wf.cache_serializer))
+    cache_exists = os.path.exists(cache_path)
+    cache_age = wf.cached_data_age(CURRENCY_CACHE_NAME)
+    log.info('[rates] cache file: %s (exists=%s, age=%ss)',
+             cache_path, cache_exists, cache_age)
+
     rates = wf.cached_data(CURRENCY_CACHE_NAME, max_age=0)
     if rates is not None and not rates:
-        log.debug('clearing empty exchange rate cache')
+        log.info('[rates] clearing empty exchange rate cache')
         wf.cache_data(CURRENCY_CACHE_NAME, None)
         return None
     if rates:
-        log.debug('loaded %d exchange rates from cache', len(rates))
+        log.info('[rates] loaded %d exchange rates from cache', len(rates))
+    else:
+        log.info('[rates] no exchange rates in cache')
     return rates
 
 
@@ -127,13 +136,19 @@ def alfred_subprocess_env(wf):
     wfdir = wf.workflowdir
     parts = [p for p in (wfdir, env.get('PYTHONPATH', '')) if p]
     env['PYTHONPATH'] = os.pathsep.join(parts)
+    log.info('[rates] background env workflow_cache=%s workflow_data=%s',
+             env.get('alfred_workflow_cache', '(unset)'),
+             env.get('alfred_workflow_data', '(unset)'))
     return env
 
 
 def run_currency_update(wf):
     """Fetch exchange rates in a background subprocess."""
     cmd = [PYTHON, wf.workflowfile('currency.py')]
-    run_in_background('update', cmd, env=alfred_subprocess_env(wf))
+    env = alfred_subprocess_env(wf)
+    log.info('[rates] spawning background update: cmd=%r', cmd)
+    retcode = run_in_background('update', cmd, env=env)
+    log.info('[rates] background launcher exit code: %s', retcode)
 
 
 def show_currency_help():
@@ -733,27 +748,34 @@ def main(wf):
 
     # Load cached data
     exchange_rates = load_exchange_rates(wf)
+    needs_rate_fetch = query_needs_rate_fetch(query)
+    cache_fresh = wf.cached_data_fresh(CURRENCY_CACHE_NAME, CURRENCY_CACHE_AGE)
+    update_running = is_running('update')
+    log.info('[rates] query=%r needs_rate_fetch=%s cache_fresh=%s '
+             'update_running=%s',
+             query, needs_rate_fetch, cache_fresh, update_running)
 
     if exchange_rates:  # Add exchange rates to conversion database
         register_exchange_rates(exchange_rates)
 
-    if not exchange_rates or not wf.cached_data_fresh(CURRENCY_CACHE_NAME,
-                                                      CURRENCY_CACHE_AGE):
-        # Update currency rates
+    if not exchange_rates or not cache_fresh:
+        log.info('[rates] queueing background update')
         run_currency_update(wf)
-        
         wf.rerun = 0.5
+        update_running = is_running('update')
+        log.info('[rates] update_running after spawn=%s', update_running)
 
-    if is_running('update'):
+    if update_running or is_running('update'):
         wf.rerun = 0.5
-        if not exchange_rates:
+        if not exchange_rates and needs_rate_fetch:
+            log.info('[rates] waiting for initial rate fetch')
             wf.add_item(u'Fetching exchange rates…',
                         'Currency conversions will be momentarily possible',
                         icon=ICON_INFO)
-            if query_needs_rate_fetch(query):
-                wf.send_feedback()
-                return 0
-        else:
+            wf.send_feedback()
+            return 0
+        if exchange_rates:
+            log.info('[rates] background refresh in progress')
             wf.add_item(u'Updating exchange rates…',
                         icon=ICON_INFO)
 

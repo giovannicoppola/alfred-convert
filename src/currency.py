@@ -256,6 +256,10 @@ def main(wf):
     start_time = time.time()
     bootstrap(wf)
 
+    cache_path = wf.cachefile('{}.{}'.format(CURRENCY_CACHE_NAME,
+                                            wf.cache_serializer))
+    log.info('[rates] currency.py cache file: %s', cache_path)
+
     site = 'OpenExchangeRates.org' if OPENX_APP_KEY else 'ExchangeRate-API.com'
 
     log.info('fetching exchange rates from %s and CryptoCompare.com ...',
