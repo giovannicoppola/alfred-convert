@@ -38,8 +38,8 @@ from config import (
     ICON_UPDATE,
     NOKEY_FILENAME,
     OPENX_APP_KEY,
-    THOUSANDS_SEPARATOR
-    
+    THOUSANDS_SEPARATOR,
+    currency_requires_openx,
 )
 from defaults import Defaults
 
@@ -64,18 +64,32 @@ def open_currency_instructions():
 
 
 def error_if_currency(unit):
-    """Show an error currency conversion isn't set up.
+    """Show an error if currency conversion needs configuration.
 
-    Detect whether input is a currency, and show an error if it is and
-    there's no API key for exchange rates.
+    Detect whether input is a currency, and show an error only if it
+    requires an OpenExchangeRates.org API key that isn't set.
     """
-    if unit_is_currency(unit):
-        log.error(
-            "[parser] unit %s is a fiat currency, but OpenExchangeRates.org "
-            "API key isn't set", unit)
+    if not unit_is_currency(unit):
+        return
 
-        show_currency_help()
-        sys.exit(0)
+    if not currency_requires_openx(unit):
+        return
+
+    log.error(
+        "[parser] unit %s requires OpenExchangeRates.org, but APP_KEY "
+        "isn't set", unit)
+
+    show_currency_help()
+    sys.exit(0)
+
+
+def query_needs_rate_fetch(query):
+    """Return ``True`` if *query* mentions a fiat currency awaiting rates."""
+    for token in query.split():
+        sym = token.strip()
+        if unit_is_currency(sym) and not currency_requires_openx(sym):
+            return True
+    return False
 
 
 def show_currency_help():
@@ -679,6 +693,9 @@ def main(wf):
             wf.add_item(u'Fetching exchange rates…',
                         'Currency conversions will be momentarily possible',
                         icon=ICON_INFO)
+            if query_needs_rate_fetch(query):
+                wf.send_feedback()
+                return 0
         else:
             wf.add_item(u'Updating exchange rates…',
                         icon=ICON_INFO)

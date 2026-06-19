@@ -31,6 +31,8 @@ COPY_UNIT = os.getenv('COPY_UNIT', '') not in ('', '0')
 # ----------------------------------------------------------------------
 # API key for openexchangerates.org
 OPENX_APP_KEY = os.getenv('APP_KEY') or None
+# API key for CryptoCompare.com (optional; crypto rates skipped if unset)
+CRYPTO_APP_KEY = os.getenv('CRYPTO_API_KEY') or None
 # Update interval (default 6 hours)
 CURRENCY_CACHE_AGE = int(os.getenv('UPDATE_INTERVAL') or '360') * 60
 
@@ -40,6 +42,27 @@ OPENX_API_URL = 'https://openexchangerates.org/api/latest.json?app_id={}'
 XRA_API_URL = 'https://api.exchangerate-api.com/v4/latest/{}'
 CRYPTO_COMPARE_BASE_URL = (
     'https://min-api.cryptocompare.com/data/price?fsym={}&tsyms={}')
+
+# Fiat currencies supported without an OpenExchangeRates API key
+# (via ExchangeRate-API.com). All other entries in CURRENCIES require APP_KEY.
+XRA_CURRENCIES = frozenset([
+    u'AED', u'ARS', u'AUD', u'BGN', u'BRL', u'BSD', u'CAD', u'CHF', u'CLP',
+    u'CNY', u'COP', u'CZK', u'DKK', u'EGP', u'EUR', u'FJD', u'GBP', u'GTQ',
+    u'HKD', u'HRK', u'HUF', u'IDR', u'ILS', u'INR', u'ISK', u'JPY', u'KRW',
+    u'KZT', u'MXN', u'MYR', u'NOK', u'NZD', u'PAB', u'PEN', u'PHP', u'PKR',
+    u'PLN', u'PYG', u'RON', u'RUB', u'SEK', u'SGD', u'THB', u'TRY', u'TWD',
+    u'UAH', u'USD', u'UYU', u'ZAR', u'ZMW',
+])
+
+
+def currency_requires_openx(symbol):
+    """Return ``True`` if *symbol* needs an OpenExchangeRates API key."""
+    sym = symbol.upper()
+    if sym not in CURRENCIES:
+        return False
+    if OPENX_APP_KEY:
+        return False
+    return sym not in XRA_CURRENCIES
 SYMBOLS_PER_REQUEST = 20
 USER_AGENT = 'Alfred Convert/{}'.format(os.getenv('alfred_workflow_version'))
 NOKEY_FILENAME = 'nokey'

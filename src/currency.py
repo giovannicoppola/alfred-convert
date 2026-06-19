@@ -30,6 +30,7 @@ from config import (
     CRYPTO_COMPARE_BASE_URL,
     OPENX_API_URL,
     OPENX_APP_KEY,
+    CRYPTO_APP_KEY,
     SYMBOLS_PER_REQUEST,
     USER_AGENT,
     XRA_API_URL,
@@ -70,8 +71,16 @@ def load_cryptocurrency_rates(symbols):
         dict: `{symbol: rate}` mapping of exchange rates.
 
     """
+    if not CRYPTO_APP_KEY:
+        log.warning(
+            'not fetching cryptocurrency exchange rates: '
+            'CRYPTO_API_KEY for CryptoCompare.com not set. '
+            'Sign up for a free key at https://www.cryptocompare.com/'
+        )
+        return {}
+
     url = CRYPTO_COMPARE_BASE_URL.format(REFERENCE_CURRENCY, ','.join(symbols))
-    log.debug ("CRYPTO++++++++++++++")
+    url = '{}&api_key={}'.format(url, CRYPTO_APP_KEY)
     log.debug('fetching %s ...', url)
     r = web.get(url, headers={'User-Agent': USER_AGENT})
     r.raise_for_status()
@@ -220,7 +229,10 @@ def fetch_exchange_rates():
     pool.join()
 
     for f in futures:
-        rates.update(f.get())
+        try:
+            rates.update(f.get())
+        except Exception as err:
+            log.error('failed to fetch exchange rates: %s', err)
 
     return rates
 

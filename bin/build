@@ -8,7 +8,7 @@ root="$( cd "$here/../"; pwd )"
 builddir="${root}/build"
 srcdir="${root}/src"
 
-noexport=(APP_KEY)
+noexport=(APP_KEY CRYPTO_API_KEY)
 
 verbose=false
 

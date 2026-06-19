@@ -647,13 +647,34 @@ More info [here](https://github.com/giovannicoppola/alfred-convert)</string>
 				<true/>
 			</dict>
 			<key>description</key>
-			<string>API key for openexchangerates.org. This is required to download exchange rates for fiat currencies.</string>
+			<string>Optional API key for openexchangerates.org. Required only for fiat currencies not supported by the free ExchangeRate-API.com feed (see README). Sign up at https://openexchangerates.org/signup/free</string>
 			<key>label</key>
 			<string>API Key</string>
 			<key>type</key>
 			<string>textfield</string>
 			<key>variable</key>
 			<string>APP_KEY</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Optional API key for CryptoCompare.com. Required for cryptocurrency conversions. Sign up for a free key at https://www.cryptocompare.com/</string>
+			<key>label</key>
+			<string>Crypto API Key</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>CRYPTO_API_KEY</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -827,7 +848,7 @@ More info [here](https://github.com/giovannicoppola/alfred-convert)</string>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>4.0.2</string>
+	<string>4.1.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/giovannicoppola/alfred-convert</string>
 </dict>

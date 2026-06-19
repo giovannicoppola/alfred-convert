@@ -1,6 +1,17 @@
 
 Changelog
 =========
+
+### [4.1.0][v4.1.0] ###
+
+Released 2026-06-19
+
+- Fix fiat currency conversions failing when CryptoCompare returns 401 (fetch errors no longer abort the whole rate update)
+- Only prompt for `APP_KEY` for fiat currencies that require OpenExchangeRates.org
+- Add optional `CRYPTO_API_KEY` workflow variable for cryptocurrency rates via CryptoCompare.com
+- Show "Fetching exchange rates…" without a misleading `APP_KEY` error while rates are loading
+
+
 ### [4][v4] ###
 
 Released 2022-11-27
@@ -240,4 +251,5 @@ Released 2014-08-09.
 [v3.7.0]: https://github.com/deanishe/alfred-convert/releases/tag/v3.7.0
 [v3.99]: https://github.com/giovannicoppola/alfred-convert/releases/tag/v3.99
 [v4]: https://github.com/giovannicoppola/alfred-convert/releases/tag/v4
+[v4.1.0]: https://github.com/giovannicoppola/alfred-convert/releases/tag/v4.1.0
 [openx]: https://openexchangerates.org/

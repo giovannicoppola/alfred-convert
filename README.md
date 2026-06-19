@@ -103,7 +103,8 @@ Basic configuration is performed in the [configuration sheet][config-sheet]:
 
 |           Option          |                                                                    Meaning                                                                    |
 |---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| `APP_KEY`                 | API key for [openexchangerates.org][openx].                                                                                                   |
+| `APP_KEY`                 | Optional API key for [openexchangerates.org][openx] (extended fiat currency list). |
+| `CRYPTO_API_KEY`          | Optional API key for [CryptoCompare.com][cryptocompare] (cryptocurrency rates).   |
 | `COPY_UNIT`               | Include unit when copying conversion result. Any value but `0` or empty turns this option on.                                                 |
 | `CURRENCY_DECIMAL_PLACES` | Overrides the default `DECIMAL_PLACES` setting for currency conversions.                                                                      |
 | `DECIMAL_PLACES`          | Number of decimal places to show in results.                                                                                                  |

@@ -37,7 +37,9 @@ _getvar() {
 test -f "$ip" || { _fail "$ip not found"; }
 
 api_key="$( _getvar APP_KEY )"
+crypto_key="$( _getvar CRYPTO_API_KEY )"
 
 test -n "$api_key" && _fail "[info.plist] APP_KEY is not empty"
+test -n "$crypto_key" && _fail "[info.plist] CRYPTO_API_KEY is not empty"
 
 exit 0
