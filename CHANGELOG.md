@@ -2,6 +2,15 @@
 Changelog
 =========
 
+### [4.1.1][v4.1.1] ###
+
+Released 2026-06-19
+
+- Clear stale empty exchange-rate caches left by failed pre-4.1.0 updates
+- Do not persist empty exchange-rate fetches to cache
+- Show a helpful message and retry when free-tier currency rates have not loaded yet
+
+
 ### [4.1.0][v4.1.0] ###
 
 Released 2026-06-19
@@ -252,4 +261,5 @@ Released 2014-08-09.
 [v3.99]: https://github.com/giovannicoppola/alfred-convert/releases/tag/v3.99
 [v4]: https://github.com/giovannicoppola/alfred-convert/releases/tag/v4
 [v4.1.0]: https://github.com/giovannicoppola/alfred-convert/releases/tag/v4.1.0
+[v4.1.1]: https://github.com/giovannicoppola/alfred-convert/releases/tag/v4.1.1
 [openx]: https://openexchangerates.org/

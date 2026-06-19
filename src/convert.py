@@ -92,6 +92,30 @@ def query_needs_rate_fetch(query):
     return False
 
 
+def currency_not_loaded(unit):
+    """Return ``True`` if *unit* is an unloaded free-tier currency."""
+    sym = unit.strip()
+    if not unit_is_currency(sym) or currency_requires_openx(sym):
+        return False
+    try:
+        ureg.Quantity(1, sym)
+        return False
+    except UndefinedUnitError:
+        return True
+
+
+def load_exchange_rates(wf):
+    """Load cached exchange rates, ignoring stale empty caches."""
+    rates = wf.cached_data(CURRENCY_CACHE_NAME, max_age=0)
+    if rates is not None and not rates:
+        log.debug('clearing empty exchange rate cache')
+        wf.cache_data(CURRENCY_CACHE_NAME, None)
+        return None
+    if rates:
+        log.debug('loaded %d exchange rates from cache', len(rates))
+    return rates
+
+
 def show_currency_help():
     """Show a message in Alfred telling user to set ``APP_KEY``."""
     wf.add_item('Set APP_KEY to convert this currency',
@@ -119,6 +143,10 @@ def handle_update(wf):
     #if wf.version > Version('3.0') and lv < Version('3.1'):
     #    log.debug('clearing cache: saved data is incompatible')
     #    clear = True
+
+    if wf.version >= Version('4.1.0') and lv and lv < Version('4.1.0'):
+        log.debug('clearing cache: upgraded to 4.1.0')
+        clear = True
 
     if OPENX_APP_KEY:
         if os.path.exists(nokey):
@@ -599,8 +627,17 @@ def convert(query):
         error = 'Conversion input not understood'
 
     if error:  # Show error
+        subtitle = ('For example: 2.5cm in  |  178lb kg  |  200m/s mph')
+        if error.startswith('Unknown unit:'):
+            unit = error.split(':', 1)[1].strip()
+            if currency_not_loaded(unit):
+                error = 'Exchange rates not loaded yet'
+                subtitle = ('Currency conversions will be available momentarily')
+                cmd = ['python3', wf.workflowfile('currency.py')]
+                run_in_background('update', cmd)
+                wf.rerun = 0.5
         wf.add_item(error,
-                    'For example: 2.5cm in  |  178lb kg  |  200m/s mph',
+                    subtitle,
                     valid=False, icon=ICON_WARNING)
 
     else:  # Show results
@@ -675,12 +712,13 @@ def main(wf):
                     icon=ICON_UPDATE)
 
     # Load cached data
-    exchange_rates = wf.cached_data(CURRENCY_CACHE_NAME, max_age=0)
+    exchange_rates = load_exchange_rates(wf)
 
     if exchange_rates:  # Add exchange rates to conversion database
         register_exchange_rates(exchange_rates)
 
-    if not wf.cached_data_fresh(CURRENCY_CACHE_NAME, CURRENCY_CACHE_AGE):
+    if not exchange_rates or not wf.cached_data_fresh(CURRENCY_CACHE_NAME,
+                                                      CURRENCY_CACHE_AGE):
         # Update currency rates
         cmd = ['python3', wf.workflowfile('currency.py')]
         run_in_background('update', cmd)
@@ -689,7 +727,7 @@ def main(wf):
 
     if is_running('update'):
         wf.rerun = 0.5
-        if exchange_rates is None:  # No data cached yet
+        if not exchange_rates:
             wf.add_item(u'Fetching exchange rates…',
                         'Currency conversions will be momentarily possible',
                         icon=ICON_INFO)

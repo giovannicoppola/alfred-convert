@@ -37,5 +37,12 @@ def test_fetch_exchange_rates_tolerates_crypto_failure(monkeypatch):
     assert rates == {'EUR': 0.87}
 
 
+def test_fetch_and_cache_exchange_rates_empty(monkeypatch):
+    """Empty fetches are not cached."""
+    currency.log = logging.getLogger('test_currency')
+    monkeypatch.setattr(currency, 'fetch_exchange_rates', lambda: {})
+    assert currency.fetch_and_cache_exchange_rates() is None
+
+
 if __name__ == '__main__':  # pragma: no cover
     pytest.main([__file__])

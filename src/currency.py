@@ -237,6 +237,15 @@ def fetch_exchange_rates():
     return rates
 
 
+def fetch_and_cache_exchange_rates():
+    """Fetch exchange rates and return ``None`` if nothing was retrieved."""
+    rates = fetch_exchange_rates()
+    if not rates:
+        log.error('no exchange rates retrieved')
+        return None
+    return rates
+
+
 def main(wf):
     """Update exchange rates.
 
@@ -253,10 +262,14 @@ def main(wf):
              site)
 
     rates = wf.cached_data(CURRENCY_CACHE_NAME,
-                           fetch_exchange_rates,
+                           fetch_and_cache_exchange_rates,
                            CURRENCY_CACHE_AGE)
 
     elapsed = time.time() - start_time
+    if not rates:
+        log.info('no exchange rates updated in %0.2f seconds.', elapsed)
+        return
+
     log.info('%d exchange rates updated in %0.2f seconds.',
              len(rates), elapsed)
 
