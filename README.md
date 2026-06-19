@@ -34,6 +34,7 @@ You can also add your own custom units.
   - [Adding custom units](#adding-custom-units)
 - [Releases](#releases)
 - [Thanks, copyright, licensing](#thanks-copyright-licensing)
+- [What's new](#whats-new)
 
 <!-- /MarkdownTOC -->
 
@@ -169,6 +170,10 @@ See [CHANGELOG][changelog] for more information.
 
 |     Release     |      Date      |
 |-----------------|----------------|
+| [4.1][v4.1]     | 2026-06-19     |
+| [4.0.3][v4.0.3] | 2024-04-01     |
+| [4.0.2][v4.0.2] | 2023-10-04     |
+| [4.0.1][v4.0.1] | 2022-12-06     |
 | [4.0][v4.0]     | 2022-11-27     |
 | [3.99][v3.99]   | 2022-05-22     |
 | [3.7.0][v3.7.0] | 2020-02-20     |
@@ -208,6 +213,26 @@ Thanks, copyright, licensing
 - The [Alfred-Workflow][alfred-workflow] library is used heavily.
 
 All other code/media are released under the [MIT Licence][mit].
+
+
+<a name="whats-new"></a>
+What's new
+----------
+
+A short summary of recent changes. See the full [CHANGELOG][changelog] for details.
+
+### 4.1 (2026-06-19)
+
+- Fixed fiat currency conversions failing when CryptoCompare returns `401` — a crypto fetch error no longer aborts the whole exchange-rate update.
+- `APP_KEY` is now only required for the *extended* fiat currencies on [openexchangerates.org][openx]; common currencies work out of the box via [ExchangeRate-API.com][openx].
+- Added an optional `CRYPTO_API_KEY` setting for cryptocurrency rates via [CryptoCompare.com][cryptocompare].
+- Currency conversions now show when the exchange rates were last updated in the result subtitle.
+- More resilient rate caching: stale/empty caches are cleared and empty fetches are no longer persisted.
+- Bundled crisp warning/info icons so they render consistently across macOS releases, and switched all scripts to `/usr/bin/python3`.
+
+### 4.0 (2022-11-27)
+
+- Alfred 5 support.
 
 
 [alfred-workflow]: http://www.deanishe.net/alfred-workflow/
@@ -250,6 +275,10 @@ All other code/media are released under the [MIT Licence][mit].
 [v3.7.0]: https://github.com/deanishe/alfred-convert/releases/tag/v3.7.0
 [v3.99]: https://github.com/giovannicoppola/alfred-convert/releases/tag/v3.99
 [v4.0]: https://github.com/giovannicoppola/alfred-convert/releases/tag/v4.0
+[v4.0.1]: https://github.com/giovannicoppola/alfred-convert/releases/tag/v4.0.1
+[v4.0.2]: https://github.com/giovannicoppola/alfred-convert/releases/tag/v4.0.2
+[v4.0.3]: https://github.com/giovannicoppola/alfred-convert/releases/tag/v4.0.3
+[v4.1]: https://github.com/giovannicoppola/alfred-convert/releases/tag/v4.1
 [cryptocompare]: https://www.cryptocompare.com/
 [openx]: https://openexchangerates.org/
 [openx-free]: https://openexchangerates.org/signup/free
