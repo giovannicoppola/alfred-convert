@@ -180,6 +180,33 @@ def load_active_currencies():
     return symbols
 
 
+def load_fiat_rates(symbols):
+    """Return fiat exchange rates, falling back to ExchangeRate-API.com.
+
+    Uses OpenExchangeRates.org when ``APP_KEY`` is set, but falls back to
+    the free ExchangeRate-API.com feed if that request fails (e.g. the key
+    is invalid/expired) so that free-tier currencies keep working.
+
+    Args:
+        symbols (sequence): Currency symbols to fetch rates for.
+
+    Returns:
+        dict: `{symbol: rate}` mapping of exchange rates.
+    """
+    if OPENX_APP_KEY:
+        try:
+            rates = load_openx_rates(symbols)
+            if rates:
+                return rates
+            log.warning('[OpenExchangeRates.org] returned no rates; '
+                        'falling back to ExchangeRate-API.com')
+        except Exception as err:
+            log.error('[OpenExchangeRates.org] fetch failed (%s); '
+                      'falling back to ExchangeRate-API.com', err)
+
+    return load_xra_rates(symbols)
+
+
 def fetch_exchange_rates():
     """Retrieve all currency exchange rates.
 
@@ -202,9 +229,9 @@ def fetch_exchange_rates():
             'Please sign up for a free account here: '
             'https://openexchangerates.org/signup/free'
         )
-        jobs = [(load_xra_rates, (syms,))]
+        jobs = [(load_fiat_rates, (syms,))]
     else:
-        jobs = [(load_openx_rates, (syms,))]
+        jobs = [(load_fiat_rates, (syms,))]
 
     
     syms = []
@@ -260,7 +287,8 @@ def main(wf):
                                             wf.cache_serializer))
     log.info('[rates] currency.py cache file: %s', cache_path)
 
-    site = 'OpenExchangeRates.org' if OPENX_APP_KEY else 'ExchangeRate-API.com'
+    site = ('OpenExchangeRates.org (fallback ExchangeRate-API.com)'
+            if OPENX_APP_KEY else 'ExchangeRate-API.com')
 
     log.info('fetching exchange rates from %s and CryptoCompare.com ...',
              site)
