@@ -15,6 +15,7 @@ from logging import exception
 
 import os
 import sys
+import time
 
 from pint import UnitRegistry, UndefinedUnitError, DimensionalityError
 
@@ -142,6 +143,31 @@ def alfred_subprocess_env(wf):
              env.get('alfred_workflow_cache', '(unset)'),
              env.get('alfred_workflow_data', '(unset)'))
     return env
+
+
+def humanize_age(seconds):
+    """Return a human-readable description of an age in seconds."""
+    seconds = int(seconds)
+    if seconds < 60:
+        return 'just now'
+    minutes = seconds // 60
+    if minutes < 60:
+        return '{} minute{} ago'.format(minutes, '' if minutes == 1 else 's')
+    hours = minutes // 60
+    if hours < 24:
+        return '{} hour{} ago'.format(hours, '' if hours == 1 else 's')
+    days = hours // 24
+    return '{} day{} ago'.format(days, '' if days == 1 else 's')
+
+
+def rates_updated_subtitle(wf):
+    """Return a subtitle describing when exchange rates were last updated."""
+    age = wf.cached_data_age(CURRENCY_CACHE_NAME)
+    if not age:
+        return 'Exchange rates: update time unknown'
+    updated = time.strftime('%Y-%m-%d %H:%M',
+                            time.localtime(time.time() - age))
+    return 'Exchange rates updated {} ({})'.format(humanize_age(age), updated)
 
 
 def run_currency_update(wf):
@@ -681,6 +707,7 @@ def convert(query):
         p = CURRENCY_DECIMAL_PLACES if i.is_currency else DECIMAL_PLACES
         f = Formatter(p, DECIMAL_SEPARATOR, THOUSANDS_SEPARATOR,
                       DYNAMIC_DECIMALS)
+        subtitle = rates_updated_subtitle(wf) if i.is_currency else None
         wf.setvar('query', query)
         for conv in results:
             value = copytext = f.formatted(conv.to_number, conv.to_unit)
@@ -690,6 +717,7 @@ def convert(query):
                 arg = f.formatted_no_thousands(conv.to_number)
 
             it = wf.add_item(value,
+                             subtitle=subtitle or '',
                              valid=True,
                              arg=arg,
                              copytext=copytext,
