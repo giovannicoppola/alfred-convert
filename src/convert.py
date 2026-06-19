@@ -18,7 +18,7 @@ import sys
 
 from pint import UnitRegistry, UndefinedUnitError, DimensionalityError
 
-from workflow import Workflow3, ICON_WARNING, ICON_INFO
+from workflow import Workflow3
 from workflow.background import run_in_background, is_running
 from workflow.update import Version
 from config import (
@@ -35,7 +35,9 @@ from config import (
     DEFAULT_SETTINGS,
     DYNAMIC_DECIMALS,
     HELP_URL,
+    ICON_INFO,
     ICON_UPDATE,
+    ICON_WARNING,
     NOKEY_FILENAME,
     OPENX_APP_KEY,
     PYTHON,
