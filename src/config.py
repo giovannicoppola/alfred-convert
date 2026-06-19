@@ -1775,26 +1775,11 @@ ICON_CURRENCY = 'icons/money.png'
 ICON_HELP = 'icons/help.png'
 ICON_UPDATE = 'icons/update-available.png'
 
-# System icon names changed across macOS releases (e.g. AlertCautionIcon.icns
-# was removed in favour of AlertCautionBadgeIcon.icns). Pick the first that
-# exists so the icons don't silently disappear.
-_SYS_ICON_ROOT = ('/System/Library/CoreServices/CoreTypes.bundle'
-                  '/Contents/Resources')
-
-
-def _system_icon(*names):
-    """Return path to the first existing system icon in *names*."""
-    for name in names:
-        path = os.path.join(_SYS_ICON_ROOT, name)
-        if os.path.exists(path):
-            return path
-    # Fall back to the last candidate so callers always get a path
-    return os.path.join(_SYS_ICON_ROOT, names[-1])
-
-
-ICON_WARNING = _system_icon('AlertCautionBadgeIcon.icns',
-                            'AlertCautionIcon.icns')
-ICON_INFO = _system_icon('ToolbarInfo.icns')
+# Ship our own warning/info icons so they render consistently across macOS
+# releases (system icons like AlertCautionIcon.icns were removed/changed and
+# AlertCautionBadgeIcon.icns renders as an ugly badged folder).
+ICON_WARNING = 'icons/warning.png'
+ICON_INFO = 'icons/info.png'
 
 # ----------------------------------------------------------------------
 # Update and default user settings
