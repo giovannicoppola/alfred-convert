@@ -38,6 +38,7 @@ from config import (
     ICON_UPDATE,
     NOKEY_FILENAME,
     OPENX_APP_KEY,
+    PYTHON,
     THOUSANDS_SEPARATOR,
     currency_requires_openx,
 )
@@ -114,6 +115,25 @@ def load_exchange_rates(wf):
     if rates:
         log.debug('loaded %d exchange rates from cache', len(rates))
     return rates
+
+
+def alfred_subprocess_env(wf):
+    """Return environment for background workflow subprocesses."""
+    env = os.environ.copy()
+    for key, value in wf.alfred_env.items():
+        if value in (None, '', False):
+            continue
+        env['alfred_' + key] = str(value)
+    wfdir = wf.workflowdir
+    parts = [p for p in (wfdir, env.get('PYTHONPATH', '')) if p]
+    env['PYTHONPATH'] = os.pathsep.join(parts)
+    return env
+
+
+def run_currency_update(wf):
+    """Fetch exchange rates in a background subprocess."""
+    cmd = [PYTHON, wf.workflowfile('currency.py')]
+    run_in_background('update', cmd, env=alfred_subprocess_env(wf))
 
 
 def show_currency_help():
@@ -633,8 +653,8 @@ def convert(query):
             if currency_not_loaded(unit):
                 error = 'Exchange rates not loaded yet'
                 subtitle = ('Currency conversions will be available momentarily')
-                cmd = ['python3', wf.workflowfile('currency.py')]
-                run_in_background('update', cmd)
+                cmd = [PYTHON, wf.workflowfile('currency.py')]
+                run_in_background('update', cmd, env=alfred_subprocess_env(wf))
                 wf.rerun = 0.5
         wf.add_item(error,
                     subtitle,
@@ -720,8 +740,7 @@ def main(wf):
     if not exchange_rates or not wf.cached_data_fresh(CURRENCY_CACHE_NAME,
                                                       CURRENCY_CACHE_AGE):
         # Update currency rates
-        cmd = ['python3', wf.workflowfile('currency.py')]
-        run_in_background('update', cmd)
+        run_currency_update(wf)
         
         wf.rerun = 0.5
 

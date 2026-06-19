@@ -31,6 +31,8 @@ COPY_UNIT = os.getenv('COPY_UNIT', '') not in ('', '0')
 # ----------------------------------------------------------------------
 # API key for openexchangerates.org
 OPENX_APP_KEY = os.getenv('APP_KEY') or None
+# Python interpreter for Alfred scripts and background jobs
+PYTHON = '/usr/bin/python3'
 # API key for CryptoCompare.com (optional; crypto rates skipped if unset)
 CRYPTO_APP_KEY = os.getenv('CRYPTO_API_KEY') or None
 # Update interval (default 6 hours)

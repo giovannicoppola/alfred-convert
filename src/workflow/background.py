@@ -196,6 +196,13 @@ def kill(name, sig=signal.SIGTERM):
     return True
 
 
+def _python_executable():
+    """Return the Python interpreter for background launcher subprocesses."""
+    if sys.platform == 'darwin':
+        return '/usr/bin/python3'
+    return sys.executable
+
+
 def run_in_background(name, args, **kwargs):
     r"""Cache arguments then call this script again via :func:`subprocess.call`.
 
@@ -225,6 +232,8 @@ def run_in_background(name, args, **kwargs):
         _log().info("[%s] job already running", name)
         return
 
+    env = kwargs.setdefault('env', os.environ.copy())
+
     argcache = _arg_cache(name)
 
     # Cache arguments
@@ -233,9 +242,9 @@ def run_in_background(name, args, **kwargs):
         _log().debug("[%s] command cached: %s", name, argcache)
 
     # Call this script
-    cmd = [sys.executable, "-m", "workflow.background", name]
+    cmd = [_python_executable(), "-m", "workflow.background", name]
     _log().debug("[%s] passing job to background runner: %r", name, cmd)
-    retcode = subprocess.call(cmd)
+    retcode = subprocess.call(cmd, env=env)
 
     if retcode:  # pragma: no cover
         _log().error("[%s] background runner failed with %d", name, retcode)
