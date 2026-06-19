@@ -31,6 +31,8 @@ COPY_UNIT = os.getenv('COPY_UNIT', '') not in ('', '0')
 # ----------------------------------------------------------------------
 # API key for openexchangerates.org
 OPENX_APP_KEY = os.getenv('APP_KEY') or None
+# Python interpreter for Alfred scripts and background jobs
+PYTHON = '/usr/bin/python3'
 # API key for CryptoCompare.com (optional; crypto rates skipped if unset)
 CRYPTO_APP_KEY = os.getenv('CRYPTO_API_KEY') or None
 # Update interval (default 6 hours)
@@ -1772,6 +1774,12 @@ README_URL = 'https://github.com/giovannicoppola/alfred-convert#alfred-convert'
 ICON_CURRENCY = 'icons/money.png'
 ICON_HELP = 'icons/help.png'
 ICON_UPDATE = 'icons/update-available.png'
+
+# Ship our own warning/info icons so they render consistently across macOS
+# releases (system icons like AlertCautionIcon.icns were removed/changed and
+# AlertCautionBadgeIcon.icns renders as an ugly badged folder).
+ICON_WARNING = 'icons/warning.png'
+ICON_INFO = 'icons/info.png'
 
 # ----------------------------------------------------------------------
 # Update and default user settings

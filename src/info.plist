@@ -240,7 +240,7 @@ echo . &gt;&amp;2
 echo "http_proxy=$http_proxy"&gt;&amp;2
 echo "https_proxy=$https_proxy"&gt;&amp;2
 
-python3 convert.py "$1"</string>
+/usr/bin/python3 convert.py "$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -305,7 +305,7 @@ variables={allvars}</string>
 				<string>export PYTHONPATH="$PWD/lib"
 export PATH=/opt/homebrew/bin:/usr/local/bin:$PWD/lib/bin:$PATH
 
-python3 defaults.py $action "$dimensionality" "$unit"</string>
+/usr/bin/python3 defaults.py $action "$dimensionality" "$unit"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -406,7 +406,7 @@ python3 defaults.py $action "$dimensionality" "$unit"</string>
 				<string>export PYTHONPATH="$PWD/lib"
 export PATH=/opt/homebrew/bin:/usr/local/bin:$PWD/lib/bin:$PATH
 
-python3 info.py "$1"</string>
+/usr/bin/python3 info.py "$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -459,7 +459,7 @@ python3 info.py "$1"</string>
 				<string>export PYTHONPATH="$PWD/lib"
 export PATH=/opt/homebrew/bin:/usr/local/bin:$PWD/lib/bin:$PATH
 
-python3 info.py $1</string>
+/usr/bin/python3 info.py $1</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -517,7 +517,7 @@ python3 info.py $1</string>
 
 Offline Conversions, based on the awesome Pint library.
 
-In addition to all units supported by Pint, almost all the currencies supported by OpenExchangeRates.org and cryptocurrencies supported by CryptoCompare.com are supported.
+In addition to all units supported by Pint, many fiat currencies are supported via ExchangeRate-API.com (no API key required). Additional fiat currencies are available with an OpenExchangeRates.org API key (`APP_KEY`). Cryptocurrencies require a free CryptoCompare.com API key (`CRYPTO_API_KEY`).
 
 You can also add your own custom units.
 More info [here](https://github.com/giovannicoppola/alfred-convert)</string>
@@ -848,7 +848,7 @@ More info [here](https://github.com/giovannicoppola/alfred-convert)</string>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>4.1.1</string>
+	<string>4.1</string>
 	<key>webaddress</key>
 	<string>https://github.com/giovannicoppola/alfred-convert</string>
 </dict>
