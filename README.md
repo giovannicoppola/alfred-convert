@@ -10,6 +10,10 @@ Original by Dean Jackson ([@deanishe](https://github.com/deanishe))
 <img alt="Downloads"
 src="https://img.shields.io/github/downloads/giovannicoppola/alfred-convert/total?color=purple&label=Downloads"><br/>
 </a>
+<a href="https://alfred.app/workflows/giovanni/convert/">
+<img alt="Gallery Downloads"
+src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fgiovannicoppola%2Falfred-gallery-downloads%2Fmain%2Fdownloads.json&query=%24.convert%5B0%5D.display&label=Gallery%20Downloads&color=blue&logo=alfred"><br/>
+</a>
 
 
 ![][demo]
