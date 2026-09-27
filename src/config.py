@@ -13,12 +13,23 @@
 import os
 import shutil
 
+
+def _int_env(name, default):
+    """Parse an integer workflow var; blank/invalid → *default*."""
+    raw = os.getenv(name)
+    if raw is None or not str(raw).strip():
+        return default
+    try:
+        return int(str(raw).strip())
+    except (TypeError, ValueError):
+        return default
+
+
 # ----------------------------------------------------------------------
 # Result display
 # ----------------------------------------------------------------------
-DECIMAL_PLACES = int(os.getenv('DECIMAL_PLACES') or '2')
-CURRENCY_DECIMAL_PLACES = int(os.getenv('CURRENCY_DECIMAL_PLACES') or
-                              str(DECIMAL_PLACES))
+DECIMAL_PLACES = _int_env('DECIMAL_PLACES', 2)
+CURRENCY_DECIMAL_PLACES = _int_env('CURRENCY_DECIMAL_PLACES', DECIMAL_PLACES)
 DECIMAL_SEPARATOR = os.getenv('DECIMAL_SEPARATOR') or '.'
 THOUSANDS_SEPARATOR = os.getenv('THOUSANDS_SEPARATOR') or ''
 
@@ -36,7 +47,7 @@ PYTHON = '/usr/bin/python3'
 # API key for CryptoCompare.com (optional; crypto rates skipped if unset)
 CRYPTO_APP_KEY = os.getenv('CRYPTO_API_KEY') or None
 # Update interval (default 6 hours)
-CURRENCY_CACHE_AGE = int(os.getenv('UPDATE_INTERVAL') or '360') * 60
+CURRENCY_CACHE_AGE = _int_env('UPDATE_INTERVAL', 360) * 60
 
 CURRENCY_CACHE_NAME = 'exchange_rates'
 REFERENCE_CURRENCY = 'USD'

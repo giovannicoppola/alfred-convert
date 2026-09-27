@@ -86,11 +86,21 @@ def load_cryptocurrency_rates(symbols):
     r.raise_for_status()
 
     data = r.json()
+    if not isinstance(data, dict) or data.get('Response') == 'Error':
+        log.warning('[CryptoCompare.com] unexpected payload: %r', data)
+        return {}
+    rates = {}
     for sym, rate in data.items():
+        if sym in ('Response', 'Message', 'Type', 'ParamWithError'):
+            continue
+        try:
+            rates[sym] = float(rate)
+        except (TypeError, ValueError):
+            continue
         log.debug('[CryptoCompare.com] 1 %s = %s %s',
                   REFERENCE_CURRENCY, rate, sym)
 
-    return data
+    return rates
 
 
 def load_xra_rates(symbols):
@@ -107,6 +117,9 @@ def load_xra_rates(symbols):
     r.raise_for_status()
     log.debug('[%s] %s', r.status_code, url)
     data = r.json()
+    if not isinstance(data, dict) or 'rates' not in data:
+        log.warning('[ExchangeRate-API.com] unexpected payload: %r', data)
+        return rates
 
     for sym, rate in data['rates'].items():
         if sym not in wanted:

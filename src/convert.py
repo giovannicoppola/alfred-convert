@@ -757,7 +757,11 @@ def main(wf):
     wf.magic_arguments['appkey'] = open_currency_instructions
 
     if not len(wf.args):
-        return
+        wf.add_item('Convert a quantity',
+                    'e.g. 100 km in miles, 20 USD in EUR',
+                    icon=ICON_INFO)
+        wf.send_feedback()
+        return 0
 
     query = wf.args[0]  # .lower()
     log.debug('query : %s', query)
